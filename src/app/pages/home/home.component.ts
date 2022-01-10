@@ -148,13 +148,15 @@ export class HomeComponent implements OnInit {
   filterSchool(e) {
     console.log(e.toUpperCase());
     this.studentData.data = [];
+    let temp = [];
     if (e) {
       for (let i = 0; i < this.studentDataMaster.data.length; i++) {
         console.log(this.studentDataMaster.data[i].school_origin.toUpperCase());
         if (!this.studentDataMaster.data[i].school_origin.toUpperCase().indexOf(e.toUpperCase())) {
-          this.studentData.data.push(this.studentDataMaster.data[i]);
+          temp.push(this.studentDataMaster.data[i]);
         }
       }
+      this.studentData.data = temp;
     } else {
       this.studentData.data = this.studentDataMaster.data;
     }
