@@ -129,15 +129,18 @@ export class HomeComponent implements OnInit {
   filterStudent(e) {
     console.log(e.toUpperCase());
     this.studentData.data = [];
+    let temp = [];
     if (e) {
       for (let i = 0; i < this.studentDataMaster.data.length; i++) {
         console.log(this.studentDataMaster.data[i].students.toUpperCase());
         if (!this.studentDataMaster.data[i].students.toUpperCase().indexOf(e.toUpperCase())) {
-          this.studentData.data.push(this.studentDataMaster.data[i]);
+          temp.push(this.studentDataMaster.data[i]);
         }
       }
+      console.log(temp);
+      this.studentData.data = temp;
     } else {
-      this.studentData.data = this.studentDataMaster.data
+      this.studentData.data = this.studentDataMaster.data;
     }
     console.log(this.studentData.data);
   }
@@ -153,7 +156,7 @@ export class HomeComponent implements OnInit {
         }
       }
     } else {
-      this.studentData.data = this.studentDataMaster.data
+      this.studentData.data = this.studentDataMaster.data;
     }
     console.log(this.studentData.data);
   }
