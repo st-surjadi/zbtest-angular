@@ -85,8 +85,8 @@
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>School</mat-label>
       <input type="text" placeholder="Pick one" aria-label="School" matInput [formControl]="controlSchool"
-        [matAutocomplete]="auto" (ngModelChange)="changeSchool($event)">
-      <mat-autocomplete #auto="matAutocomplete">
+        [matAutocomplete]="autoSchool" (ngModelChange)="changeSchool($event)">
+      <mat-autocomplete #autoSchool="matAutocomplete">
         <mat-option *ngFor="let option of schoolCorrectingList" [value]="option.school.short_name">
           {{ option.school.short_name }}
         </mat-option>
