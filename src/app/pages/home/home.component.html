@@ -5,7 +5,8 @@
       <h4>List of ALL Students preparing S-TFT4</h4>
       <div class="table-container">
         <app-dynamic-table [data]="studentData" [columns]="studentTableColumns"
-          [columnDisplayList]="studentTableColumnsDisplay">
+          [columnDisplayList]="studentTableColumnsDisplay" [schoolCorrectingList]="schoolCorrectingOptions"
+          (onChangeSchoolCorrecting)="changeSchoolCorrecting($event)">
         </app-dynamic-table>
       </div>
     </div>

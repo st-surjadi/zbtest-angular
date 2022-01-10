@@ -11,7 +11,12 @@ export class ApiService {
     private http: HttpClient
   ) { }
 
-  getAllStudent(): Observable<any> {
+  getAllStudents(): Observable<any> {
     return this.http.get('./assets/data/students-table-list.json');
   }
+
+  getAllSchools(): Observable<any> {
+    return this.http.get('./assets/data/school-list.json');
+  }
+
 }
