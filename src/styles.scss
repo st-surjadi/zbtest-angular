@@ -17,3 +17,16 @@ body {
   color: $clr_light;
 }
 
+.mat-paginator-page-size {
+  display: none !important;
+}
+.mat-paginator-container {
+  background-color: $clr_primary;
+  border: 1px solid #bebebe;
+  color: $clr_light;
+}
+
+th.mat-header-cell, td.mat-cell {
+  color: $clr_light;
+  border: 1px solid #bebebe;
+}

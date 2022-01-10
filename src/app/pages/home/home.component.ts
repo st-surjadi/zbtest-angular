@@ -19,6 +19,16 @@ export class HomeComponent implements OnInit {
   ];
 
   schoolCorrectingOptions = [];
+  crossCorrectorOptions = [];
+
+  schoolData = new MatTableDataSource<any>();
+  schoolTableColumns = ['students', 'school_origin', 'school_correcting', 'cross_corrector'];
+  schoolTableColumnsDisplay = [
+    { name: 'Schools', id_content: 1 },
+    { name: 'Students', id_content: 4 },
+    { name: 'Correction', id_content: 5 },
+    { name: 'Diff', id_content: 6 },
+  ];
 
   constructor(
     private api: ApiService
@@ -28,6 +38,7 @@ export class HomeComponent implements OnInit {
     try {
       this.getAllStudents();
       this.getAllSchools();
+      this.getAllCorrector();
     } catch (error) {
       console.log(error);
     }
@@ -59,9 +70,39 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  async getAllCorrector() {
+    try {
+      const res = this.api.getAllCorrector().subscribe(data => {
+        this.crossCorrectorOptions = data;
+        console.log(this.crossCorrectorOptions);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   changeSchoolCorrecting(e) {
     console.log(e);
-    this.studentData.data[e.index].school_correcting_id.short_name = this.schoolCorrectingOptions[e.school_index].school.short_name;
+    if (e.school_index < 0) {
+      this.studentData.data[e.index].school_correcting_id._id = null;
+      this.studentData.data[e.index].school_correcting_id.short_name = null;
+      this.studentData.data[e.index].school_correcting_corrector_id._id = null;
+      this.studentData.data[e.index].school_correcting_corrector_id.first_name = null;
+      this.studentData.data[e.index].school_correcting_corrector_id.last_name = null;
+    } else {
+      this.studentData.data[e.index].school_correcting_id.short_name = this.schoolCorrectingOptions[e.school_index].school.short_name;
+    }
+  }
+
+  changeCrossCorrector(e) {
+    if (e.corrector_index < 0) {
+      this.studentData.data[e.index].school_correcting_corrector_id._id = null;
+      this.studentData.data[e.index].school_correcting_corrector_id.first_name = null;
+      this.studentData.data[e.index].school_correcting_corrector_id.last_name = null;
+    } else {
+      this.studentData.data[e.index].school_correcting_corrector_id.first_name = e.filtered_data[e.corrector_index].first_name;
+      this.studentData.data[e.index].school_correcting_corrector_id.last_name = e.filtered_data[e.corrector_index].last_name;
+    }
   }
 
 }

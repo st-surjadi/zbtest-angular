@@ -1,4 +1,28 @@
+@import '/src/styles/config';
+
+.dynamic_table {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+tr.mat-row.even {
+  background-color: $clr_secondary;
+}
+
+tr.mat-row, .mat-header-row {
+  background-color: $clr_primary;
+}
+
+.mat-header-row {
+  background-color: $clr_dark;
+}
+
 .table-container {
   max-height: 70vh;
   overflow-y: auto;
+}
+
+.pagination-description {
+  position: absolute;
+  bottom: .3rem;
+  left: 1rem;
 }

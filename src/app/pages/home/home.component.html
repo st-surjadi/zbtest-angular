@@ -6,7 +6,8 @@
       <div class="table-container">
         <app-dynamic-table [data]="studentData" [columns]="studentTableColumns"
           [columnDisplayList]="studentTableColumnsDisplay" [schoolCorrectingList]="schoolCorrectingOptions"
-          (onChangeSchoolCorrecting)="changeSchoolCorrecting($event)">
+          (onChangeSchoolCorrecting)="changeSchoolCorrecting($event)" [crossCorrectorList]="crossCorrectorOptions"
+          (onChangeCrossCorrector)="changeCrossCorrector($event)">
         </app-dynamic-table>
       </div>
     </div>

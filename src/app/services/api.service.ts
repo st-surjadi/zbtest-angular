@@ -19,4 +19,12 @@ export class ApiService {
     return this.http.get('./assets/data/school-list.json');
   }
 
+  getAllCorrector(): Observable<any> {
+    return this.http.get('./assets/data/school-corrector-list.json');
+  }
+
+  getAllSchoolData(): Observable<any> {
+    return this.http.get('./assets/data/school-table-list.json');
+  }
+
 }
