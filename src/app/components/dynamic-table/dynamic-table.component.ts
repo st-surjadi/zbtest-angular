@@ -30,11 +30,15 @@ export class DynamicTableComponent implements OnInit, OnChanges {
 
   controlStudent = new FormControl();
   controlSchool = new FormControl();
+  controlCorrecting = new FormControl();
+  controlCorrector = new FormControl();
 
   @Output() onFilterStudent = new EventEmitter();
   @Output() onFilterSchool = new EventEmitter();
   @Output() onFilterCorrecting = new EventEmitter();
   @Output() onFilterCorrector = new EventEmitter();
+
+  @Input() correctorList: Array<any> = [];
 
   constructor() { }
 
@@ -54,6 +58,9 @@ export class DynamicTableComponent implements OnInit, OnChanges {
   }
 
   focusSchoolCorrecting(row) {
+    // this.filteredSchoolCorrecting = this.schoolCorrectingList.filter(e => {
+    //   this.schoolCorrectingList[i].school._id !== row.school_origin_id._id
+    // });
     this.filteredSchoolCorrecting = [];
     for (let i = 0; i < this.schoolCorrectingList.length; i++) {
       if (this.schoolCorrectingList[i].school._id == row.school_origin_id._id) {
@@ -62,11 +69,9 @@ export class DynamicTableComponent implements OnInit, OnChanges {
         this.filteredSchoolCorrecting.push(this.schoolCorrectingList[i]);
       }
     }
-    console.log(this.filteredSchoolCorrecting);
   }
 
   changeSchoolCorrecting(e, index) {
-    console.log(e);
     let school_index = this.schoolCorrectingList.findIndex(x => x.school._id === e);
     var data = {
       index: index,
@@ -89,7 +94,6 @@ export class DynamicTableComponent implements OnInit, OnChanges {
         }
       }
     }
-    console.log(this.filteredCrossCorrector);
   }
 
   changeCorrector(e, index) {
@@ -126,6 +130,14 @@ export class DynamicTableComponent implements OnInit, OnChanges {
 
   changeSchool(e) {
     this.onFilterSchool.emit(e);
+  }
+
+  changeCorrecting(e) {
+    this.onFilterCorrecting.emit(e);
+  }
+
+  changeCross(e) {
+    this.onFilterCorrector.emit(e);
   }
 
 }

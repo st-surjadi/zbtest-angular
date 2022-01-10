@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
 
   schoolCorrectingOptions = [];
   crossCorrectorOptions = [];
+  correctorList = [];
 
   schoolData = new MatTableDataSource<any>();
   schoolTableColumns = ['short_name', 'students', 'correction', 'diff'];
@@ -41,6 +42,7 @@ export class HomeComponent implements OnInit {
       this.getAllSchools();
       this.getAllCorrector();
       this.getAllSchoolData();
+      this.getAllCorrectorData();
     } catch (error) {
       console.log(error);
     }
@@ -56,7 +58,6 @@ export class HomeComponent implements OnInit {
           e.school_origin = e.school_origin_id.short_name;
           this.studentDataMaster.data[index].students = e.students
         });
-        console.log(this.studentData.data);
       });
     } catch (error) {
       console.log(error);
@@ -67,7 +68,6 @@ export class HomeComponent implements OnInit {
     try {
       const res = this.api.getAllSchools().subscribe(data => {
         this.schoolCorrectingOptions = data;
-        console.log(this.schoolCorrectingOptions);
       });
     } catch (error) {
       console.log(error);
@@ -78,7 +78,6 @@ export class HomeComponent implements OnInit {
     try {
       const res = this.api.getAllSchoolData().subscribe(data => {
         this.schoolData.data = data;
-        console.log(this.schoolData.data);
       });
     } catch (error) {
       console.log(error);
@@ -89,7 +88,19 @@ export class HomeComponent implements OnInit {
     try {
       const res = this.api.getAllCorrector().subscribe(data => {
         this.crossCorrectorOptions = data;
-        console.log(this.crossCorrectorOptions);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getAllCorrectorData() {
+    try {
+      const res = this.api.getAllCorrectorData().subscribe(data => {
+        this.correctorList = data;
+        this.correctorList.forEach(e => {
+          e.school_correcting_corrector_id.fullname = `${e.school_correcting_corrector_id.first_name} ${e.school_correcting_corrector_id.last_name}`
+        })
       });
     } catch (error) {
       console.log(error);
@@ -97,7 +108,6 @@ export class HomeComponent implements OnInit {
   }
 
   changeSchoolCorrecting(e) {
-    console.log(e);
     let index = this.schoolData.data.findIndex(s => s.short_name === this.studentData.data[e.index].school_correcting_id.short_name || s._id === this.studentData.data[e.index].school_correcting_id._id);
     if (this.studentData.data[e.index].school_correcting_id.short_name && !this.studentData.data[e.index].school_correcting_id._id && this.schoolData.data[index].correction > 0) {
       this.schoolData.data[index].correction--;
@@ -127,31 +137,23 @@ export class HomeComponent implements OnInit {
   }
 
   filterStudent(e) {
-    console.log(e.toUpperCase());
-    this.studentData.data = [];
     let temp = [];
     if (e) {
       for (let i = 0; i < this.studentDataMaster.data.length; i++) {
-        console.log(this.studentDataMaster.data[i].students.toUpperCase());
         if (!this.studentDataMaster.data[i].students.toUpperCase().indexOf(e.toUpperCase())) {
           temp.push(this.studentDataMaster.data[i]);
         }
       }
-      console.log(temp);
       this.studentData.data = temp;
     } else {
       this.studentData.data = this.studentDataMaster.data;
     }
-    console.log(this.studentData.data);
   }
 
   filterSchool(e) {
-    console.log(e.toUpperCase());
-    this.studentData.data = [];
     let temp = [];
     if (e) {
       for (let i = 0; i < this.studentDataMaster.data.length; i++) {
-        console.log(this.studentDataMaster.data[i].school_origin.toUpperCase());
         if (!this.studentDataMaster.data[i].school_origin.toUpperCase().indexOf(e.toUpperCase())) {
           temp.push(this.studentDataMaster.data[i]);
         }
@@ -160,15 +162,40 @@ export class HomeComponent implements OnInit {
     } else {
       this.studentData.data = this.studentDataMaster.data;
     }
-    console.log(this.studentData.data);
   }
 
   filterCorrecting(e) {
-
+    let temp = [];
+    if (e) {
+      for (let i = 0; i < this.studentDataMaster.data.length; i++) {
+        if (this.studentDataMaster.data[i].school_correcting_id.short_name &&
+          !this.studentDataMaster.data[i].school_correcting_id.short_name.toUpperCase().indexOf(e.toUpperCase())
+        ) {
+          temp.push(this.studentDataMaster.data[i]);
+        }
+      }
+      this.studentData.data = temp;
+    } else {
+      this.studentData.data = this.studentDataMaster.data;
+    }
   }
 
   filterCorrector(e) {
-
+    let temp = [];
+    if (e) {
+      for (let i = 0; i < this.studentDataMaster.data.length; i++) {
+        if (this.studentDataMaster.data[i].school_correcting_corrector_id.first_name &&
+          this.studentDataMaster.data[i].school_correcting_corrector_id.last_name &&
+          (!this.studentDataMaster.data[i].school_correcting_corrector_id.first_name.toUpperCase().indexOf(e.toUpperCase()) ||
+            !this.studentDataMaster.data[i].school_correcting_corrector_id.last_name.toUpperCase().indexOf(e.toUpperCase()))
+        ) {
+          temp.push(this.studentDataMaster.data[i]);
+        }
+      }
+      this.studentData.data = temp;
+    } else {
+      this.studentData.data = this.studentDataMaster.data;
+    }
   }
 
 

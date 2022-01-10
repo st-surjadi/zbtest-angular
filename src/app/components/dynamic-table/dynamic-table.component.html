@@ -3,8 +3,65 @@
     <div class="table-container">
       <table mat-table [dataSource]="data" class="mat-elevation-z8 w-100">
         <ng-container *ngFor="let column of columns; index as i" [matColumnDef]="column">
-          <th mat-header-cell *matHeaderCellDef class="px-2" rowspan="2">
-            {{ columnDisplayList[i].name }}
+          <th mat-header-cell *matHeaderCellDef class="p-2" rowspan="2">
+            {{ columnDisplayList[i]?.name }}
+            <ng-container *ngIf="column == 'students'">
+              <form class="example-form">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Search</mat-label>
+                  <input type="text" aria-label="Student" matInput [formControl]="controlStudent"
+                    [matAutocomplete]="autoStudent" (ngModelChange)="changeStudents($event)">
+                  <mat-autocomplete #autoStudent="matAutocomplete">
+                    <mat-option *ngFor="let option of data.data" [value]="option.students">
+                      {{ option.students }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </form>
+            </ng-container>
+            <ng-container *ngIf="column == 'school_origin'">
+              <form class="example-form">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Search</mat-label>
+                  <input type="text" aria-label="School" matInput [formControl]="controlSchool"
+                    [matAutocomplete]="autoSchool" (ngModelChange)="changeSchool($event)">
+                  <mat-autocomplete #autoSchool="matAutocomplete">
+                    <mat-option *ngFor="let option of schoolCorrectingList" [value]="option.school.short_name">
+                      {{ option.school.short_name }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </form>
+            </ng-container>
+            <ng-container *ngIf="column == 'school_correcting'">
+              <form class="example-form">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Search</mat-label>
+                  <input type="text" aria-label="Correcting" matInput [formControl]="controlCorrecting"
+                    [matAutocomplete]="autoCorrecting" (ngModelChange)="changeCorrecting($event)">
+                  <mat-autocomplete #autoCorrecting="matAutocomplete">
+                    <mat-option *ngFor="let option of schoolCorrectingList" [value]="option.school.short_name">
+                      {{ option.school.short_name }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </form>
+            </ng-container>
+            <ng-container *ngIf="column == 'cross_corrector'">
+              <form class="example-form">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Search</mat-label>
+                  <input type="text" aria-label="Corrector" matInput [formControl]="controlCorrector"
+                    [matAutocomplete]="autoCorrector" (ngModelChange)="changeCross($event)">
+                  <mat-autocomplete #autoCorrector="matAutocomplete">
+                    <mat-option *ngFor="let option of correctorList"
+                      [value]="option.school_correcting_corrector_id.fullname">
+                      {{ option.school_correcting_corrector_id.fullname }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </form>
+            </ng-container>
           </th>
           <td mat-cell *matCellDef="let element; index as j" class="px-2">
             <ng-container [ngSwitch]="columnDisplayList[i].id_content">
@@ -40,19 +97,6 @@
             </ng-container>
           </td>
         </ng-container>
-
-        <!-- <ng-container matColumnDef="filter-student">
-          <th mat-header-cell *matHeaderCellDef>
-
-          </th>
-        </ng-container>
-        <ng-container matColumnDef="filter-school">
-          <th mat-header-cell *matHeaderCellDef>
-
-          </th>
-        </ng-container> -->
-
-        <!-- <tr mat-header-row *matHeaderRowDef="['filter-student', 'filter-school']"></tr> -->
         <tr mat-header-row *matHeaderRowDef="columns" class="px-2"></tr>
         <tr mat-row *matRowDef="let row; let even = even;columns: columns;" [class.even]="even" class="px-2"></tr>
       </table>
@@ -65,32 +109,4 @@
       </mat-paginator>
     </ng-container>
   </ng-container>
-</div>
-
-<div *ngIf="name == 'student'" class="my-3 p-3">
-  <p>Very sorry, first time using angular-material. Haven't finished the filter part. Thank you.</p>
-  <form class="example-form">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Students</mat-label>
-      <input type="text" placeholder="Pick one" aria-label="Student" matInput [formControl]="controlStudent"
-        [matAutocomplete]="auto" (ngModelChange)="changeStudents($event)">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of data.data" [value]="option.students">
-          {{ option.students }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  </form>
-  <form class="example-form">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>School</mat-label>
-      <input type="text" placeholder="Pick one" aria-label="School" matInput [formControl]="controlSchool"
-        [matAutocomplete]="autoSchool" (ngModelChange)="changeSchool($event)">
-      <mat-autocomplete #autoSchool="matAutocomplete">
-        <mat-option *ngFor="let option of schoolCorrectingList" [value]="option.school.short_name">
-          {{ option.school.short_name }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  </form>
 </div>

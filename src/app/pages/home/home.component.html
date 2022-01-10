@@ -9,7 +9,8 @@
           (onChangeSchoolCorrecting)="changeSchoolCorrecting($event)" [crossCorrectorList]="crossCorrectorOptions"
           (onChangeCrossCorrector)="changeCrossCorrector($event)" [name]="'student'"
           (onFilterSchool)="filterSchool($event)" (onFilterStudent)="filterStudent($event)"
-          (onFilterCorrecting)="filterCorrecting($event)" (onFilterCorrector)="filterCorrector($event)">
+          (onFilterCorrecting)="filterCorrecting($event)" (onFilterCorrector)="filterCorrector($event)"
+          [correctorList]="correctorList">
         </app-dynamic-table>
       </div>
     </div>
