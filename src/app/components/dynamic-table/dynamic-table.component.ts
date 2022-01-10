@@ -9,7 +9,7 @@ import { MatTable, MatTableDataSource, _MatTableDataSource } from '@angular/mate
 })
 export class DynamicTableComponent implements OnInit, OnChanges {
 
-  @Input() name: any = null;
+  @Input() name: any = 'student';
   @Input() data: any = null;
   @Input() columns: Array<any> = [];
   @Input() columnDisplayList: Array<any> = [];
@@ -105,6 +105,10 @@ export class DynamicTableComponent implements OnInit, OnChanges {
       }
     }
     return counter;
+  }
+
+  pageEvent(e) {
+    const el = document.getElementsByClassName('table-container');
   }
 
 }

@@ -30,3 +30,21 @@ th.mat-header-cell, td.mat-cell {
   color: $clr_light;
   border: 1px solid #bebebe;
 }
+
+.table-container {
+  .ng-value-container, .ng-clear-wrapper, span.ng-arrow {
+    color: $clr_light;
+  }
+  .ng-clear-wrapper {
+    color: $clr_light;
+  }
+  .ng-select-container {
+    border-bottom: 1px solid $clr_light;
+  }
+  .ng-select .ng-arrow-wrapper .ng-arrow {
+    color: $clr_light;
+  }
+  .ng-value-container .ng-value {
+    padding-top: 5px;
+  }
+}

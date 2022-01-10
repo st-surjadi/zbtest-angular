@@ -1,4 +1,4 @@
-<div class="dynamic_table">
+<div class="dynamic-table" id="dynamic_table">
   <ng-container *ngIf="data && columns">
     <div class="table-container">
       <table mat-table [dataSource]="data" class="mat-elevation-z8 w-100">
@@ -45,8 +45,9 @@
     <p *ngIf="name === 'student'" class="pagination-description">
       {{ data.data.length }} total / {{ calculateRemaining() }} remain to be assigned.
     </p>
-    <ng-container *ngIf="data.data.length > 10">
-      <mat-paginator showFirstLastButtons [pageSize]="10" [length]="data.data.length"></mat-paginator>
+    <ng-container *ngIf="name === 'student'">
+      <mat-paginator showFirstLastButtons [pageSize]="10" [length]="data.data.length" (page)="pageEvent($event)">
+      </mat-paginator>
     </ng-container>
   </ng-container>
 </div>
