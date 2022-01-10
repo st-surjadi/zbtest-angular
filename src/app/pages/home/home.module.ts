@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 
 import { RouterModule, Routes } from '@angular/router';
+import { DynamicTableModule } from 'src/app/components/dynamic-table/dynamic-table.module';
 
 const routes: Routes = [
   {
@@ -18,7 +19,8 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    DynamicTableModule
   ]
 })
 export class HomeModule { }
