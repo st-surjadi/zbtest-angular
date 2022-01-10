@@ -2,6 +2,7 @@
 
 .dynamic-table {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  position: relative;
 }
 
 tr.mat-row.even {
@@ -25,4 +26,8 @@ tr.mat-row, .mat-header-row {
   position: absolute;
   bottom: .3rem;
   left: 1rem;
+}
+
+.my-3 {
+  background-color: $clr_secondary;
 }

@@ -7,7 +7,9 @@
         <app-dynamic-table [data]="studentData" [columns]="studentTableColumns"
           [columnDisplayList]="studentTableColumnsDisplay" [schoolCorrectingList]="schoolCorrectingOptions"
           (onChangeSchoolCorrecting)="changeSchoolCorrecting($event)" [crossCorrectorList]="crossCorrectorOptions"
-          (onChangeCrossCorrector)="changeCrossCorrector($event)" [name]="'student'">
+          (onChangeCrossCorrector)="changeCrossCorrector($event)" [name]="'student'"
+          (onFilterSchool)="filterSchool($event)" (onFilterStudent)="filterStudent($event)"
+          (onFilterCorrecting)="filterCorrecting($event)" (onFilterCorrector)="filterCorrector($event)">
         </app-dynamic-table>
       </div>
     </div>

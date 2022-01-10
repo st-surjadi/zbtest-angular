@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class HomeComponent implements OnInit {
 
   studentData = new MatTableDataSource<any>();
+  studentDataMaster = new MatTableDataSource<any>();
   studentTableColumns = ['students', 'school_origin', 'school_correcting', 'cross_corrector'];
   studentTableColumnsDisplay = [
     { name: 'Students', id_content: 1 },
@@ -48,10 +49,12 @@ export class HomeComponent implements OnInit {
   async getAllStudents() {
     try {
       const res = this.api.getAllStudents().subscribe(data => {
+        this.studentDataMaster.data = data;
         this.studentData.data = data;
-        this.studentData.data.forEach(e => {
+        this.studentData.data.forEach((e, index) => {
           e.students = `${e.student_id.first_name} ${e.student_id.last_name}`;
           e.school_origin = e.school_origin_id.short_name;
+          this.studentDataMaster.data[index].students = e.students
         });
         console.log(this.studentData.data);
       });
@@ -122,5 +125,34 @@ export class HomeComponent implements OnInit {
       this.studentData.data[e.index].school_correcting_corrector_id.last_name = e.filtered_data[e.corrector_index].last_name;
     }
   }
+
+  filterStudent(e) {
+    console.log(e.toUpperCase());
+    this.studentData.data = [];
+    if (e) {
+      for (let i = 0; i < this.studentDataMaster.data.length; i++) {
+        console.log(this.studentDataMaster.data[i].students.toUpperCase());
+        if (!this.studentDataMaster.data[i].students.toUpperCase().indexOf(e.toUpperCase())) {
+          this.studentData.data.push(this.studentDataMaster.data[i]);
+        }
+      }
+    } else {
+      this.studentData.data = this.studentDataMaster.data
+    }
+    console.log(this.studentData.data);
+  }
+
+  filterSchool(e) {
+
+  }
+
+  filterCorrecting(e) {
+
+  }
+
+  filterCorrector(e) {
+
+  }
+
 
 }

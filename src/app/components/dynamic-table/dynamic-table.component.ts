@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource, _MatTableDataSource } from '@angular/material/table';
 
@@ -26,6 +27,14 @@ export class DynamicTableComponent implements OnInit, OnChanges {
   @Output() onChangeCrossCorrector = new EventEmitter();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  controlStudent = new FormControl();
+  controlSchool = new FormControl();
+
+  @Output() onFilterStudent = new EventEmitter();
+  @Output() onFilterSchool = new EventEmitter();
+  @Output() onFilterCorrecting = new EventEmitter();
+  @Output() onFilterCorrector = new EventEmitter();
 
   constructor() { }
 
@@ -109,6 +118,14 @@ export class DynamicTableComponent implements OnInit, OnChanges {
 
   pageEvent(e) {
     const el = document.getElementsByClassName('table-container');
+  }
+
+  changeStudents(e) {
+    this.onFilterStudent.emit(e);
+  }
+
+  changeSchool(e) {
+    this.onFilterSchool.emit(e);
   }
 
 }
