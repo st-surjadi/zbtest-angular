@@ -9,6 +9,7 @@ import { MatTable, MatTableDataSource, _MatTableDataSource } from '@angular/mate
 })
 export class DynamicTableComponent implements OnInit, OnChanges {
 
+  @Input() name: any = null;
   @Input() data: any = null;
   @Input() columns: Array<any> = [];
   @Input() columnDisplayList: Array<any> = [];
@@ -60,7 +61,8 @@ export class DynamicTableComponent implements OnInit, OnChanges {
     let school_index = this.schoolCorrectingList.findIndex(x => x.school._id === e);
     var data = {
       index: index,
-      school_index: school_index
+      school_index: school_index,
+      school_data: this.schoolCorrectingList[school_index]
     }
     this.onChangeSchoolCorrecting.emit(data);
   }
@@ -91,8 +93,8 @@ export class DynamicTableComponent implements OnInit, OnChanges {
     this.onChangeCrossCorrector.emit(data);
   }
 
-  clearSchoolCorrecting(row) {
-    this.filteredCrossCorrector = [];
+  clearSchoolCorrecting(e) {
+    console.log(e);
   }
 
   calculateRemaining() {

@@ -22,12 +22,12 @@ export class HomeComponent implements OnInit {
   crossCorrectorOptions = [];
 
   schoolData = new MatTableDataSource<any>();
-  schoolTableColumns = ['students', 'school_origin', 'school_correcting', 'cross_corrector'];
+  schoolTableColumns = ['short_name', 'students', 'correction', 'diff'];
   schoolTableColumnsDisplay = [
     { name: 'Schools', id_content: 1 },
-    { name: 'Students', id_content: 4 },
-    { name: 'Correction', id_content: 5 },
-    { name: 'Diff', id_content: 6 },
+    { name: 'Students', id_content: 1 },
+    { name: 'Correction', id_content: 1 },
+    { name: 'Diff', id_content: 4 },
   ];
 
   constructor(
@@ -39,6 +39,7 @@ export class HomeComponent implements OnInit {
       this.getAllStudents();
       this.getAllSchools();
       this.getAllCorrector();
+      this.getAllSchoolData();
     } catch (error) {
       console.log(error);
     }
@@ -70,6 +71,17 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  async getAllSchoolData() {
+    try {
+      const res = this.api.getAllSchoolData().subscribe(data => {
+        this.schoolData.data = data;
+        console.log(this.schoolData.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async getAllCorrector() {
     try {
       const res = this.api.getAllCorrector().subscribe(data => {
@@ -83,6 +95,12 @@ export class HomeComponent implements OnInit {
 
   changeSchoolCorrecting(e) {
     console.log(e);
+    let index = this.schoolData.data.findIndex(s => s.short_name === this.studentData.data[e.index].school_correcting_id.short_name || s._id === this.studentData.data[e.index].school_correcting_id._id);
+    if (this.studentData.data[e.index].school_correcting_id.short_name && !this.studentData.data[e.index].school_correcting_id._id && this.schoolData.data[index].correction > 0) {
+      this.schoolData.data[index].correction--;
+    } else {
+      this.schoolData.data[index].correction++;
+    }
     if (e.school_index < 0) {
       this.studentData.data[e.index].school_correcting_id._id = null;
       this.studentData.data[e.index].school_correcting_id.short_name = null;

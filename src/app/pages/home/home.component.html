@@ -7,14 +7,16 @@
         <app-dynamic-table [data]="studentData" [columns]="studentTableColumns"
           [columnDisplayList]="studentTableColumnsDisplay" [schoolCorrectingList]="schoolCorrectingOptions"
           (onChangeSchoolCorrecting)="changeSchoolCorrecting($event)" [crossCorrectorList]="crossCorrectorOptions"
-          (onChangeCrossCorrector)="changeCrossCorrector($event)">
+          (onChangeCrossCorrector)="changeCrossCorrector($event)" [name]="'student'">
         </app-dynamic-table>
       </div>
     </div>
     <div class="col-12 col-md-4 p-0">
       <h4>List of All Schools S-TFT4</h4>
       <div class="table-container">
-        <app-dynamic-table></app-dynamic-table>
+        <app-dynamic-table [data]="schoolData" [columns]="schoolTableColumns"
+          [columnDisplayList]="schoolTableColumnsDisplay" [name]="'school'">
+        </app-dynamic-table>
       </div>
     </div>
   </div>
